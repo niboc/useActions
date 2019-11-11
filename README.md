@@ -1,6 +1,7 @@
 # useActions
 The potential of useReducer by using simple methods
 
+## HOOK
 ```react
 import React from "react";
 
@@ -50,3 +51,85 @@ const useActions = ({ initialState, actions }) => {
 
 export default useActions;
 ```
+
+
+## EXAMPLE
+
+###### actions.js
+```react
+export const initialState = { count: 0, count2: 0, loading: false };
+
+export const actions = (state, update) => {
+  let tmAux = null;
+
+  return {
+    decrement(e) {
+      update({ count: state.count - 1 });
+    },
+    increment(e) {
+      update({ count: state.count + 1 });
+    },
+    getRandom(e) {
+      //Cancelo request anterior
+      tmAux && clearTimeout(tmAux);
+      //Simulo delay
+      tmAux = setTimeout(() => {
+        update({
+          loading: false,
+          count: Math.ceil(Math.random() * 20)
+        });
+        tmAux = null;
+      }, 3000);
+
+      update({ loading: true });
+    }
+  };
+};
+```
+
+###### component
+```react
+import React from "react";
+import useActions from "../../hooks/useActions";
+import { actions, initialState } from "./actions.js";
+import useWhyDidYouUpdate from "../../hooks/useWhyDidYouUpdate";
+
+const Counter = ({ id }) => {
+  const [{ count, loading }, { decrement, increment, getRandom }] = useActions({
+    initialState,
+    actions
+  });
+
+  useWhyDidYouUpdate("Counter", {
+    count,
+    loading,
+    decrement,
+    increment,
+    getRandom
+  });
+
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <div>
+        <h3>Counter {id}</h3>
+        <button onClick={decrement}>-</button>
+        <input
+          type="text"
+          onChange={() => {}}
+          value={count}
+          style={{ textAlign: "center" }}
+        />
+        <button onClick={increment}>+</button>
+      </div>
+      <div>
+        <button onClick={getRandom}>
+          {loading ? "loading..." : "Randomize"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
