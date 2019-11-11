@@ -72,6 +72,7 @@ export const actions = (state, update) => {
     getRandom(e) {
       update({ loading: true });
       
+      //Simulate async call
       tmAux && clearTimeout(tmAux);
       tmAux = setTimeout(() => {
         update({
