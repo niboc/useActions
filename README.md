@@ -70,6 +70,8 @@ export const actions = (state, update) => {
       update({ count: state.count + 1 });
     },
     getRandom(e) {
+      update({ loading: true });
+      
       tmAux && clearTimeout(tmAux);
       tmAux = setTimeout(() => {
         update({
@@ -78,8 +80,6 @@ export const actions = (state, update) => {
         });
         tmAux = null;
       }, 3000);
-
-      update({ loading: true });
     }
   };
 };
