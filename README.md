@@ -90,20 +90,11 @@ export const actions = (state, update) => {
 import React from "react";
 import useActions from "../../hooks/useActions";
 import { actions, initialState } from "./actions.js";
-import useWhyDidYouUpdate from "../../hooks/useWhyDidYouUpdate";
 
 const Counter = ({ id }) => {
   const [{ count, loading }, { decrement, increment, getRandom }] = useActions({
     initialState,
     actions
-  });
-
-  useWhyDidYouUpdate("Counter", {
-    count,
-    loading,
-    decrement,
-    increment,
-    getRandom
   });
 
   return (
