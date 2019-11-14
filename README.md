@@ -28,7 +28,7 @@ const useActions = ({ initialState, actions }) => {
     if (action.type === KEY_UPDATE) return action.payload;
     else if (_actions[action.type]) {
       setTimeout(() => {
-        _actions[action.type](action);
+        _actions[action.type](...action.args);
       }, 1);
       return state;
     } else return state;
@@ -39,8 +39,8 @@ const useActions = ({ initialState, actions }) => {
   const methods = React.useMemo(() => {
     const aux = {};
     keys.forEach(key => {
-      aux[key] = args => {
-        dispatch({ ...args, type: key });
+      aux[key] = (...args) => {
+        dispatch({ args, type: key });
       };
     });
     return aux;
