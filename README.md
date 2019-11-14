@@ -1,5 +1,6 @@
 # useActions
 The potential of useReducer by using simple methods
+[DEMO](https://codesandbox.io/s/useactions-9uhbz)
 
 ## HOOK
 ```react
