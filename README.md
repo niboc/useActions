@@ -65,13 +65,13 @@ export const actions = (state, update) => {
   let tmAux = null;
 
   return {
-    decrement(e) {
+    decrement() {
       update({ count: state.count - 1 });
     },
-    increment(e) {
+    increment() {
       update({ count: state.count + 1 });
     },
-    getRandom(e) {
+    getRandom() {
       update({ loading: true });
       
       //Simulate async call
