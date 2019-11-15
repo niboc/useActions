@@ -72,9 +72,9 @@ export const actions = (state, update) => {
       update({ count: state.count + 1 });
     },
     getRandom(min, max) {
-      //Cancelo request anterior
+      //Cancel previous request
       tmAux && clearTimeout(tmAux);
-      //Simulo delay
+      //Simulate server delay
       tmAux = setTimeout(() => {
         update({
           loading: false,
