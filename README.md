@@ -71,18 +71,19 @@ export const actions = (state, update) => {
     increment() {
       update({ count: state.count + 1 });
     },
-    getRandom() {
-      update({ loading: true });
-      
-      //Simulate async call
+    getRandom(min, max) {
+      //Cancelo request anterior
       tmAux && clearTimeout(tmAux);
+      //Simulo delay
       tmAux = setTimeout(() => {
         update({
           loading: false,
-          count: Math.ceil(Math.random() * 20)
+          count: Math.ceil(Math.random() * (max - min - 1)) + min - 1
         });
         tmAux = null;
       }, 3000);
+
+      update({ loading: true });
     }
   };
 };
@@ -111,7 +112,7 @@ const Counter = ({ id }) => {
         <button onClick={increment}>+</button>
       </div>
       <div>
-        <button onClick={getRandom}>
+        <button onClick={() => getRandom(20, 30)}>
           {loading ? "loading..." : "Randomize"}
         </button>
       </div>
