@@ -1,5 +1,5 @@
 # useActions
-The potential of useReducer by using simple methods
+The potential of useReducer by using simple methods. When rendering only changes what really changes. Methods retain their original reference. Please leave your comments, they are appreciated.
 
 [DEMO](https://codesandbox.io/s/useactions-9uhbz)
 
