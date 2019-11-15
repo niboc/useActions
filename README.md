@@ -9,7 +9,7 @@ import React from "react";
 
 const KEY_UPDATE = "__update";
 
-const useActions = ({ initialState, actions }) => {
+const useActions = (actions, initialState = {}) => {
   const keys = React.useMemo(() => {
     return Object.keys(actions());
   }, [actions]);
@@ -95,10 +95,7 @@ import useActions from "../../hooks/useActions";
 import { actions, initialState } from "./actions.js";
 
 const Counter = ({ id }) => {
-  const [{ count, loading }, { decrement, increment, getRandom }] = useActions({
-    initialState,
-    actions
-  });
+  const [{ count, loading }, { decrement, increment, getRandom }] = useActions(actions, initialState);
 
   return (
     <div style={{ marginBottom: 20 }}>
