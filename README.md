@@ -10,22 +10,16 @@ import React from "react";
 const KEY_UPDATE = "__update";
 
 const useActions = (actions, initialState = {}) => {
-  const keys = React.useMemo(() => {
-    return Object.keys(actions());
-  }, [actions]);
-
-  const update = newState => {
-    dispatch({
-      type: KEY_UPDATE,
-      payload: {
-        ...state,
-        ...newState
-      }
-    });
-  };
-
   const reducer = (state, action) => {
-    const _actions = actions(state, update);
+    const _actions = actions(state, newState => {
+      dispatch({
+        type: KEY_UPDATE,
+        payload: {
+          ...state,
+          ...newState
+        }
+      });
+    });
 
     if (action.type === KEY_UPDATE) return action.payload;
     else if (_actions[action.type]) {
@@ -40,13 +34,13 @@ const useActions = (actions, initialState = {}) => {
 
   const methods = React.useMemo(() => {
     const aux = {};
-    keys.forEach(key => {
+    Object.keys(actions()).forEach(key => {
       aux[key] = (...args) => {
         dispatch({ args, type: key });
       };
     });
     return aux;
-  }, [keys]);
+  }, [actions]);
 
   return [state, methods];
 };
